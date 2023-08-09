@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  
+    <string name="download_path" translatable="false">/data/axp_updates/</string>
+    <string name="export_path" translatable="false">AXP.OS updates/</string>
+    <string name="updater_server_url" translatable="false">https://sfxota.binbash.rocks:8010/api/v1/{device}/{type}/{incr}</string>
+
+</resources>
