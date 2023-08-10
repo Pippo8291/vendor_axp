@@ -17,5 +17,5 @@ if [ -z "$CUSTOM_AXP_OTA_SERVER_URI" ];then
 else
     export AXP_OTA_SERVER_URI=$CUSTOM_AXP_OTA_SERVER_URI
 fi
-sed "s|%%AXP_OTA_SERVER_URI%%|${AXP_OTA_SERVER_URI}|g" vendor/axp/overlays/packages/apps/Updater/app/src/main/res/values/strings.xml.src > vendor/axp/overlays/packages/apps/Updater/app/src/main/res/values/strings.xml 
+sed -i "s|%%AXP_OTA_SERVER_URI%%|${AXP_OTA_SERVER_URI}|g" vendor/axp/overlays/packages/apps/Updater/app/src/main/res/values/strings.xml
 
