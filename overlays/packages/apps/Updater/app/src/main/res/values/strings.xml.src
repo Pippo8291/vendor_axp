@@ -4,6 +4,6 @@
   
     <string name="download_path" translatable="false">/data/axp_updates/</string>
     <string name="export_path" translatable="false">AXP.OS updates/</string>
-    <string name="updater_server_url" translatable="false">https://sfxota.binbash.rocks:8010/api/v1/{device}/{type}/{incr}</string>
+    <string name="updater_server_url" translatable="false">%%AXP_OTA_SERVER_URI%%</string>
 
 </resources>
