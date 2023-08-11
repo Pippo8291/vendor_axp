@@ -7,8 +7,8 @@ project packages/apps/Updater/
          }
  
 -        return server + "?base=LineageOS&device=" + device + "&inc=" + incrementalVersion;
-+       // example: https://sfxota.binbash.rocks:8010/axp/api/v1/{device}/{incr}
-+        return server + "/axp/api/v1/" + device + "/" + incrementalVersion;
++        String type = SystemProperties.get(Constants.PROP_RELEASE_TYPE).toLowerCase(Locale.ROOT);
++        return server + "/axp/api/v1/" + device + "/" + type + "/" + incrementalVersion;
      }
  
      public static String getUpgradeBlockedURL(Context context) {
