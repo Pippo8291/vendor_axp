@@ -1,0 +1,14 @@
+
+project packages/apps/Updater/
+--- a/app/src/main/java/org/lineageos/updater/misc/Utils.java   2023-08-11 11:56:17.302867956 +0000
++++ b/app/src/main/java/org/lineageos/updater/misc/Utils.java   2023-08-11 11:50:16.602677216 +0000
+@@ -222,7 +222,8 @@
+             server = serverOnion;
+         }
+ 
+-        return server + "?base=LineageOS&device=" + device + "&inc=" + incrementalVersion;
++       // example: https://sfxota.binbash.rocks:8010/axp/api/v1/{device}/{incr}
++        return server + "/axp/api/v1/" + device + "/" + incrementalVersion;
+     }
+ 
+     public static String getUpgradeBlockedURL(Context context) {
