@@ -18,6 +18,12 @@ export AXP_TARGET_ARCH=$(build/soong/soong_ui.bash --dumpvar-mode TARGET_ARCH  2
 export AXP_KERNEL_PATH=$(build/soong/soong_ui.bash --dumpvar-mode TARGET_KERNEL_SOURCE  2>/dev/null)
 export AXP_KERNEL_CONF=$(build/soong/soong_ui.bash --dumpvar-mode TARGET_KERNEL_CONFIG  2>/dev/null)
 
+if [ "x$AXP_KERNEL_PATH" == x ];then
+    echo "[AXP] ERROR: kerne path could not be detected"
+else
+    echo "[AXP] started ..."
+fi
+
 # allow a custom OTA server URI, use default if unspecified
 if [ -z "$CUSTOM_AXP_OTA_SERVER_URI" ];then
     export AXP_OTA_SERVER_URI="https://sfxota.binbash.rocks:8010/axp/a${AXP_TARGET_VERSION}/api/v1/{device}/{incr}"
@@ -36,3 +42,4 @@ if [ ! -f "$AXP_KERNEL_PATH/.wg.patched" ];then
     grep -q '^CONFIG_WIREGUARD=y' $AXP_KERNEL_PATH/arch/$AXP_TARGET_ARCH/configs/$AXP_KERNEL_CONF || echo CONFIG_WIREGUARD=y >> $AXP_KERNEL_PATH/arch/$AXP_TARGET_ARCH/configs/$AXP_KERNEL_CONF
     echo "[AXP] .. kernel config is set for wireguard"
 fi
+echo "[AXP] ended with $? ..."
