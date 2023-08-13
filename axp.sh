@@ -32,7 +32,7 @@ else
 fi
 cd vendor/axp/overlays/packages/apps/Updater/app/src/main/res/values/ && git checkout strings.xml
 cd $CPWD
-sed -i "s|%%AXP_OTA_SERVER_URI%%|${AXP_OTA_SERVER_URI}|g" vendor/axp/overlays/packages/apps/Updater/app/src/main/res/values/strings.xml
+sed -i "s|%%AXP_OTA_SERVER_URI%%|${AXP_OTA_SERVER_URI}|g" vendor/axp/overlays/packages/apps/Updater/app/src/main/res/values/strings.xml && echo "[AXP] .. updated OTA url"
 
 # patch kernel source to build wireguard module
 if [ ! -f "$AXP_KERNEL_PATH/.wg.patched" ];then
@@ -41,5 +41,7 @@ if [ ! -f "$AXP_KERNEL_PATH/.wg.patched" ];then
     cd $CPWD
     grep -q '^CONFIG_WIREGUARD=y' $AXP_KERNEL_PATH/arch/$AXP_TARGET_ARCH/configs/$AXP_KERNEL_CONF || echo CONFIG_WIREGUARD=y >> $AXP_KERNEL_PATH/arch/$AXP_TARGET_ARCH/configs/$AXP_KERNEL_CONF
     echo "[AXP] .. kernel config is set for wireguard"
+else
+    echo "[AXP] .. kernel is already patched (patch indicator exists)"
 fi
 echo "[AXP] ended with $? ..."
