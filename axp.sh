@@ -39,8 +39,11 @@ if [ ! -f "$AXP_KERNEL_PATH/.wg.patched" ];then
     cd $AXP_KERNEL_PATH
     ../../wireguard-linux-compat/kernel-tree-scripts/create-patch.sh | patch -p1 --no-backup-if-mismatch && touch .wg.patched && echo "[AXP] .. patched kernel sources for wireguard"
     cd $CPWD
-    grep -q '^CONFIG_WIREGUARD=y' $AXP_KERNEL_PATH/arch/$AXP_TARGET_ARCH/configs/$AXP_KERNEL_CONF || echo CONFIG_WIREGUARD=y >> $AXP_KERNEL_PATH/arch/$AXP_TARGET_ARCH/configs/$AXP_KERNEL_CONF
-    echo "[AXP] .. kernel config is set for wireguard"
+    OPT="CONFIG_NET CONFIG_INET CONFIG_NET_UDP_TUNNEL CONFIG_CRYPTO_ALGAPI CONFIG_WIREGUARD"
+    for cf in $OPT; do  
+       grep -q "^$cf=y" $AXP_KERNEL_PATH/arch/$AXP_TARGET_ARCH/configs/$AXP_KERNEL_CONF || echo $cf=y >> $AXP_KERNEL_PATH/arch/$AXP_TARGET_ARCH/configs/$AXP_KERNEL_CONF
+       echo "[AXP] .. kernel config $cf is set for wireguard"
+    done
 else
     echo "[AXP] .. kernel is already patched (patch indicator exists)"
 fi
