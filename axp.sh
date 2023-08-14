@@ -37,6 +37,7 @@ sed -i "s|%%AXP_OTA_SERVER_URI%%|${AXP_OTA_SERVER_URI}|g" vendor/axp/overlays/pa
 # patch kernel source to build wireguard module
 if [ ! -f "$AXP_KERNEL_PATH/.wg.patched" ];then
     cd $AXP_KERNEL_PATH
+    if [ -d "net/wireguard" ];then rm -rf net/wireguard ;fi
     ../../wireguard-linux-compat/kernel-tree-scripts/create-patch.sh | patch -p1 --no-backup-if-mismatch && touch .wg.patched && echo "[AXP] .. patched kernel sources for wireguard"
     cd $CPWD
     OPT="CONFIG_NET CONFIG_INET CONFIG_NET_UDP_TUNNEL CONFIG_CRYPTO_ALGAPI CONFIG_IPV6 CONFIG_WIREGUARD"
