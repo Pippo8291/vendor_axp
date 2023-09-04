@@ -56,6 +56,7 @@ if [ ! -f "$AXP_KERNEL_PATH/.defconf.patched" ];then
     for cf in $OPT; do
        grep -q "^$cf=y" $AXP_KERNEL_PATH/arch/$AXP_TARGET_ARCH/configs/$AXP_KERNEL_CONF || echo $cf=y >> $AXP_KERNEL_PATH/arch/$AXP_TARGET_ARCH/configs/$AXP_KERNEL_CONF
        echo "[AXP] .. kernel defconfig $cf has been set"
+       touch $AXP_KERNEL_PATH/.defconf.patched
     done
 else
     echo "[AXP] .. kernel defconfig is already patched (patch indicator exists)"
