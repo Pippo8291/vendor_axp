@@ -41,11 +41,24 @@ if [ ! -f "$AXP_KERNEL_PATH/.wg.patched" ];then
     ../../wireguard-linux-compat/kernel-tree-scripts/create-patch.sh | patch -p1 --no-backup-if-mismatch && touch .wg.patched && echo "[AXP] .. patched kernel sources for wireguard"
     cd $CPWD
     OPT="CONFIG_NET CONFIG_INET CONFIG_NET_UDP_TUNNEL CONFIG_CRYPTO_ALGAPI CONFIG_WIREGUARD"
-    for cf in $OPT; do  
+    for cf in $OPT; do
        grep -q "^$cf=y" $AXP_KERNEL_PATH/arch/$AXP_TARGET_ARCH/configs/$AXP_KERNEL_CONF || echo $cf=y >> $AXP_KERNEL_PATH/arch/$AXP_TARGET_ARCH/configs/$AXP_KERNEL_CONF
        echo "[AXP] .. kernel config $cf is set for wireguard"
     done
 else
     echo "[AXP] .. kernel is already patched (patch indicator exists)"
 fi
+
+# patch kernel defconfig
+if [ ! -f "$AXP_KERNEL_PATH/.defconf.patched" ];then
+    # CONFIG_HIBERNATE=y -> to allow hibernate (testing if that makes any difference for android)
+    OPT="CONFIG_HIBERNATE"
+    for cf in $OPT; do
+       grep -q "^$cf=y" $AXP_KERNEL_PATH/arch/$AXP_TARGET_ARCH/configs/$AXP_KERNEL_CONF || echo $cf=y >> $AXP_KERNEL_PATH/arch/$AXP_TARGET_ARCH/configs/$AXP_KERNEL_CONF
+       echo "[AXP] .. kernel defconfig $cf has been set"
+    done
+else
+    echo "[AXP] .. kernel defconfig is already patched (patch indicator exists)"
+fi
+
 echo "[AXP] ended with $? ..."
