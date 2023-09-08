@@ -19,7 +19,7 @@ export AXP_KERNEL_PATH=$(build/soong/soong_ui.bash --dumpvar-mode TARGET_KERNEL_
 export AXP_KERNEL_CONF=$(build/soong/soong_ui.bash --dumpvar-mode TARGET_KERNEL_CONFIG  2>/dev/null)
 
 if [ "x$AXP_KERNEL_PATH" == x ];then
-    echo "[AXP] ERROR: kerne path could not be detected"
+    echo "[AXP] ERROR: kernel path could not be detected"
 else
     echo "[AXP] started ..."
 fi
