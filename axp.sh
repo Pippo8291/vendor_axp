@@ -35,11 +35,12 @@ cd $CPWD
 sed -i "s|%%AXP_OTA_SERVER_URI%%|${AXP_OTA_SERVER_URI}|g" vendor/axp/overlays/packages/apps/Updater/app/src/main/res/values/strings.xml && echo "[AXP] .. updated OTA url"
 
 # patch kernel source to build wireguard module
-if [ ! -f "$AXP_KERNEL_PATH/.wg.patched" ];then
+if [ ! -f ".wg.patched" ];then
     cd $AXP_KERNEL_PATH
     if [ -d "net/wireguard" ];then rm -rf net/wireguard ;fi
-    ../../wireguard-linux-compat/kernel-tree-scripts/create-patch.sh | patch -p1 --no-backup-if-mismatch && touch .wg.patched && echo "[AXP] .. patched kernel sources for wireguard"
+    ../../wireguard-linux-compat/kernel-tree-scripts/create-patch.sh | patch -p1 --no-backup-if-mismatch && echo "[AXP] .. patched kernel sources for wireguard"
     cd $CPWD
+    touch .wg.patched
     OPT="CONFIG_NET CONFIG_INET CONFIG_NET_UDP_TUNNEL CONFIG_CRYPTO_ALGAPI CONFIG_WIREGUARD"
     for cf in $OPT; do
        grep -q "^$cf=y" $AXP_KERNEL_PATH/arch/$AXP_TARGET_ARCH/configs/$AXP_KERNEL_CONF || echo $cf=y >> $AXP_KERNEL_PATH/arch/$AXP_TARGET_ARCH/configs/$AXP_KERNEL_CONF
