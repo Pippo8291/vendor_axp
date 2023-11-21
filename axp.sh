@@ -44,7 +44,7 @@ if [ ! -f ".wg.patched" ];then
     touch .wg.patched
     OPT="CONFIG_NET CONFIG_INET CONFIG_NET_UDP_TUNNEL CONFIG_CRYPTO_ALGAPI CONFIG_WIREGUARD"
     for cf in $OPT; do
-       grep -q "^$cf=y" $AXP_KERNEL_PATH/arch/$AXP_TARGET_ARCH/configs/$AXP_KERNEL_CONF || echo $cf=y >> $AXP_KERNEL_PATH/arch/$AXP_TARGET_ARCH/configs/$AXP_KERNEL_CONF
+       grep -q "^$cf=y" $AXP_KERNEL_PATH/arch/$AXP_TARGET_ARCH/configs/$AXP_KERNEL_CONF || echo -e "\n$cf=y" >> $AXP_KERNEL_PATH/arch/$AXP_TARGET_ARCH/configs/$AXP_KERNEL_CONF
        echo "[AXP] .. kernel config $cf is set for wireguard"
     done
 else
@@ -56,7 +56,7 @@ if [ ! -f "$AXP_KERNEL_PATH/.defconf.patched" ];then
     # CONFIG_HIBERNATE=y -> to allow hibernate (testing if that makes any difference for android)
     OPT="CONFIG_HIBERNATE"
     for cf in $OPT; do
-       grep -q "^$cf=y" $AXP_KERNEL_PATH/arch/$AXP_TARGET_ARCH/configs/$AXP_KERNEL_CONF || echo $cf=y >> $AXP_KERNEL_PATH/arch/$AXP_TARGET_ARCH/configs/$AXP_KERNEL_CONF
+       grep -q "^$cf=y" $AXP_KERNEL_PATH/arch/$AXP_TARGET_ARCH/configs/$AXP_KERNEL_CONF || echo -e "\n$cf=y" >> $AXP_KERNEL_PATH/arch/$AXP_TARGET_ARCH/configs/$AXP_KERNEL_CONF
        echo "[AXP] .. kernel defconfig $cf has been set"
        touch $AXP_KERNEL_PATH/.defconf.patched
     done
