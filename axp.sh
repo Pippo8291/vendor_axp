@@ -48,11 +48,15 @@ fi
 
 # patch kernel defconfig
 if [ ! -f "$AXP_KERNEL_PATH/.defconf.patched" ];then
-    for cf in $AXP_DEFCONFIG_GLOBALS $AXP_DEFCONFIG_DEVICE; do
+    for cf in $AXP_DEFCONFIG_GLOBALS; do
        grep -q "^$cf=y" $AXP_KERNEL_PATH/arch/$AXP_TARGET_ARCH/configs/$AXP_KERNEL_CONF || echo -e "\n$cf=y" >> $AXP_KERNEL_PATH/arch/$AXP_TARGET_ARCH/configs/$AXP_KERNEL_CONF
-       echo "[AXP] .. kernel defconfig $cf has been set"
-       touch $AXP_KERNEL_PATH/.defconf.patched
+       echo "[AXP] .. kernel globals defconfig $cf has been set"
     done
+    for cfd in $AXP_DEFCONFIG_DEVICE; do
+       grep -q "^$cfd" $AXP_KERNEL_PATH/arch/$AXP_TARGET_ARCH/configs/$AXP_KERNEL_CONF || echo -e "\n$cfd" >> $AXP_KERNEL_PATH/arch/$AXP_TARGET_ARCH/configs/$AXP_KERNEL_CONF
+       echo "[AXP] .. kernel device specific defconfig $cfd has been set"
+    done
+    touch $AXP_KERNEL_PATH/.defconf.patched
 else
     echo "[AXP] .. kernel defconfig is already patched (patch indicator exists)"
 fi
