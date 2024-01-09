@@ -1,0 +1,31 @@
+
+project packages/apps/Settings
+diff --git a/src/com/android/settings/TetherSettings.java b/src/com/android/settings/TetherSettings.java
+index 18c78556ac..1371bdf931 100644
+--- a/src/com/android/settings/TetherSettings.java
++++ b/src/com/android/settings/TetherSettings.java
+@@ -162,6 +162,8 @@ public class TetherSettings extends RestrictedSettingsFragment
+             return;
+         }
+
++        setupTetherPreference();
++
+         final Activity activity = getActivity();
+         BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
+         if (adapter != null) {
+@@ -169,7 +171,6 @@ public class TetherSettings extends RestrictedSettingsFragment
+                     BluetoothProfile.PAN);
+         }
+
+-        setupTetherPreference();
+         setTopIntroPreferenceTitle();
+
+         mDataSaverBackend.addListener(this);
+@@ -561,6 +562,7 @@ public class TetherSettings extends RestrictedSettingsFragment
+             new BluetoothProfile.ServiceListener() {
+         public void onServiceConnected(int profile, BluetoothProfile proxy) {
+             mBluetoothPan.set((BluetoothPan) proxy);
++            updateBluetoothState();
+         }
+         public void onServiceDisconnected(int profile) {
+             mBluetoothPan.set(null);
