@@ -1,10 +1,24 @@
-############################
-# SIGNING
+##############################################################################
+#
+# This file is part of AXP.OS (https://axp.binbash.rocks)
+# LICENSE: GPLv3 (https://www.gnu.org/licenses/gpl-3.0.txt)
+#
+# Copyright (C) 2023 steadfasterX <steadfasterX -AT- gmail #DOT# com>
+# Copyright (C) 2024 steadfasterX <steadfasterX -AT- gmail #DOT# com>
+#
+##############################################################################
+# AXP.OS advanced AVB handling
+#
+# verification:
+# $> out/host/linux-x86/bin/avbtool info_image --image vbmeta.img
+# $> out/host/linux-x86/bin/avbtool verify_image --image vbmeta.img
+##############################################################################
 
-# android verified boot
+# Enable android verified boot
 BOARD_AVB_ENABLE := true
-#BOARD_AVB_ALGORITHM := SHA256_RSA4096
+# AVB key size and hash
 BOARD_AVB_ALGORITHM := SHA512_RSA4096
+
 # pub key (avb_pkmd.bin) must be flashed to avb_custom_key partition
 # see https://github.com/AXP-OS/build/wiki/Bootloader-Lock
 BOARD_AVB_KEY_PATH := user-keys/avb.pem
