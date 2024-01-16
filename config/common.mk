@@ -13,3 +13,6 @@ DEVICE_PACKAGE_OVERLAYS += \
 
 $(call inherit-product, vendor/axp/axp-vendor.mk)
 $(call inherit-product, vendor/extendrom/config/common.mk)
+
+# load the AXP.OS advanced AVB handling
+include vendor/axp/BoardConfigVendor.mk
