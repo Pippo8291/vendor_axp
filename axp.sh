@@ -62,4 +62,14 @@ else
     echo "[AXP] .. kernel defconfig is already patched (patch indicator exists)"
 fi
 
+# handle OpenEUICC incl submodules (sync-s within the manifest does not work!)
+# atm this must run always, i.e. without a flag
+#if [ "$AXP_BUILD_OPENEUICC" == "true" ];then
+    echo "[AXP] .. initiating OpenEUICC submodules"
+    cd packages/apps/OpenEUICC
+    git submodule update --init && echo "[AXP] .. OpenEUICC submodules initiated successfully"
+#else
+#    echo "[AXP] .. building OpenEUICC not requested"
+#fi
+
 echo "[AXP] ended with $? ..."
