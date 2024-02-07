@@ -64,12 +64,14 @@ fi
 
 # handle OpenEUICC incl submodules (sync-s within the manifest does not work!)
 # atm this must run always, i.e. without a flag
-#if [ "$AXP_BUILD_OPENEUICC" == "true" ];then
+if [ "$AXP_BUILD_OPENEUICC" == "true" ];then
     echo "[AXP] .. initiating OpenEUICC submodules"
     cd packages/apps/OpenEUICC
     git submodule update --init && echo "[AXP] .. OpenEUICC submodules initiated successfully"
-#else
-#    echo "[AXP] .. building OpenEUICC not requested"
-#fi
+else
+    echo "[AXP] .. building OpenEUICC not requested"
+    sed -i -E 's/^PRODUCT_PACKAGES.*OpenEUICC/# openeuicc disabled by AXP.OS/g' vendor/divested/packages.mk
+    rm -rf packages/apps/OpenEUICC && echo "[AXP] .. removed OpenEUICC dir"
+fi
 
 echo "[AXP] ended with $? ..."
