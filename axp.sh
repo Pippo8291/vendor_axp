@@ -71,7 +71,7 @@ if [ "$AXP_BUILD_OPENEUICC" == "true" ];then
 else
     echo "[AXP] .. building OpenEUICC not requested"
     sed -i -E 's/^PRODUCT_PACKAGES.*OpenEUICC/# openeuicc disabled by AXP.OS/g' vendor/divested/packages.mk
-    rm -rf packages/apps/OpenEUICC && echo "[AXP] .. removed OpenEUICC dir"
+    #rm -rf packages/apps/OpenEUICC && echo "[AXP] .. removed OpenEUICC dir"
 fi
 
 echo "[AXP] ended with $? ..."
