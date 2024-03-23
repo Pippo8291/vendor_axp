@@ -40,7 +40,13 @@ if [ ! -f ".wg.patched" ];then
     cd $AXP_KERNEL_PATH
     if [ -d "net/wireguard" ];then rm -rf net/wireguard ;fi
     mkdir -p net/wireguard/compat
-    ../../wireguard-linux-compat/kernel-tree-scripts/create-patch.sh | patch -p1 --no-backup-if-mismatch && echo "[AXP] .. patched kernel sources for wireguard"
+    ../../wireguard-linux-compat/kernel-tree-scripts/create-patch.sh | patch -p1 --no-backup-if-mismatch
+    if [ $? -eq 0 ];then
+        echo "[AXP] .. patched kernel sources for wireguard"
+    else
+        echo "[AXP] ERROR patching kernel sources for wireguard!"
+        exit 3
+    fi
     cd $CPWD
     touch .wg.patched
 else
@@ -68,9 +74,8 @@ cd packages/apps/OpenEUICC
 git submodule update --init && echo "[AXP] .. OpenEUICC submodules initiated successfully"
 cd $CPWD
 if [ "$AXP_BUILD_OPENEUICC" != "true" ];then
-    echo "[AXP] .. building OpenEUICC not requested"
+    echo "[AXP] .. skip building OpenEUICC (set AXP_BUILD_OPENEUICC=true in divested.vars.DEVICE to build)"
     sed -i -E 's/^PRODUCT_PACKAGES.*OpenEUICC/# openeuicc disabled by AXP.OS/g' vendor/divested/packages.mk
-    #rm -rf packages/apps/OpenEUICC && echo "[AXP] .. removed OpenEUICC dir"
 fi
 
 echo "[AXP] ended with $? ..."
