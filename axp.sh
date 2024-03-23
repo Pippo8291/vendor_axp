@@ -40,11 +40,11 @@ if [ ! -f ".wg.patched" ];then
     cd $AXP_KERNEL_PATH
     if [ -d "net/wireguard" ];then rm -rf net/wireguard ;fi
     mkdir -p net/wireguard/compat
-    ../../wireguard-linux-compat/kernel-tree-scripts/create-patch.sh | patch -p1 --no-backup-if-mismatch
-    if [ $? -eq 0 ];then
+    if [ -f $CPWD/kernel/wireguard-linux-compat/kernel-tree-scripts/create-patch.sh ];then
+        $CPWD/kernel/wireguard-linux-compat/kernel-tree-scripts/create-patch.sh | patch -p1 --no-backup-if-mismatch
         echo "[AXP] .. patched kernel sources for wireguard"
     else
-        echo "[AXP] ERROR patching kernel sources for wireguard!"
+        echo "[AXP] ERROR patching kernel sources for wireguard (missing compat patcher)!"
         exit 3
     fi
     cd $CPWD
