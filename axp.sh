@@ -68,14 +68,18 @@ else
     echo "[AXP] .. kernel defconfig is already patched (patch indicator exists)"
 fi
 
-# handle OpenEUICC incl submodules (sync-s within the manifest does not work!)
-echo "[AXP] .. initiating OpenEUICC submodules"
-cd packages/apps/OpenEUICC
-git submodule update --init && echo "[AXP] .. OpenEUICC submodules initiated successfully"
-cd $CPWD
-if [ "$AXP_BUILD_OPENEUICC" != "true" ];then
-    echo "[AXP] .. skip building OpenEUICC (set AXP_BUILD_OPENEUICC=true in divested.vars.DEVICE to build)"
+# OpenEUICC handling
+if [ "$AXP_BUILD_OPENEUICC" == "true" ];then
+    # handle OpenEUICC incl submodules (sync-s within the manifest does not work sometimes!)
+    echo "[AXP] .. initiating OpenEUICC submodules"
+    cd packages/apps/OpenEUICC
+    git submodule update --init && echo "[AXP] .. OpenEUICC submodules initiated successfully"
+    cd $CPWD
+    # TODO: do not apply the hacky-fix by divest (as that is included in axp's fork)! -> Scripts/LineageOS-XXX/Patch.sh
+else
+    echo "[AXP] .. skip building OpenEUICC (set AXP_BUILD_OPENEUICC=true in divested.vars.DEVICE to build it)"
     sed -i -E 's/^PRODUCT_PACKAGES.*OpenEUICC/# openeuicc disabled by AXP.OS/g' vendor/divested/packages.mk
+    [ -d packages/apps/OpenEUICC ] && rm -rf packages/apps/OpenEUICC && echo "[AXP] .. removed packages/apps/OpenEUICC (stops divest patching)"
 fi
 
 echo "[AXP] ended with $? ..."
