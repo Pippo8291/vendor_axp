@@ -1,12 +1,14 @@
-
-project packages/apps/Updater/
---- a/app/src/main/java/org/lineageos/updater/misc/Utils.java   2023-08-11 11:56:17.302867956 +0000
-+++ b/app/src/main/java/org/lineageos/updater/misc/Utils.java   2023-08-11 11:50:16.602677216 +0000
-@@ -222,7 +222,8 @@
-             server = serverOnion;
+diff --git a/app/src/main/java/org/lineageos/updater/misc/Utils.java b/app/src/main/java/org/lineageos/updater/misc/Utils.java
+index f2cab10..3f1d363 100644
+--- a/app/src/main/java/org/lineageos/updater/misc/Utils.java
++++ b/app/src/main/java/org/lineageos/updater/misc/Utils.java
+@@ -151,9 +151,8 @@ public class Utils {
+             serverUrl = context.getString(R.string.updater_server_url);
          }
  
--        return server + "?base=LineageOS&device=" + device + "&inc=" + incrementalVersion;
+-        return serverUrl.replace("{device}", device)
+-                .replace("{type}", type)
+-                .replace("{incr}", incrementalVersion);
 +        String type = SystemProperties.get(Constants.PROP_RELEASE_TYPE).toLowerCase(Locale.ROOT);
 +        return server + "/axp/api/v1/" + device + "/" + type + "/" + incrementalVersion;
      }
