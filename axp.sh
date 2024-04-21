@@ -4,8 +4,7 @@
 # This file is part of AXP.OS (https://axp.binbash.rocks)
 # LICENSE: GPLv3 (https://www.gnu.org/licenses/gpl-3.0.txt)
 #
-# Copyright (C) 2023 steadfasterX <steadfasterX -AT- gmail #DOT# com>
-# Copyright (C) 2024 steadfasterX <steadfasterX -AT- gmail #DOT# com>
+# Copyright (C) 2023-2024 steadfasterX <steadfasterX -AT- gmail #DOT# com>
 #
 ###############################################################################
 
@@ -81,5 +80,9 @@ else
     sed -i -E 's/^PRODUCT_PACKAGES.*OpenEUICC/# openeuicc disabled by AXP.OS/g' vendor/divested/packages.mk
     [ -d packages/apps/OpenEUICC ] && rm -rf packages/apps/OpenEUICC && echo "[AXP] .. removed packages/apps/OpenEUICC (stops divest patching)"
 fi
+
+# fixup divest deblob leftover
+head -n1 device/google/gs201/widevine/device.mk | grep -q PRODUCT_PACKAGES || sed -i '1i\
+PRODUCT_PACKAGES += \\' device/google/gs201/widevine/device.mk
 
 echo "[AXP] ended with $? ..."
