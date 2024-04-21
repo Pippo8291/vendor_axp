@@ -81,8 +81,10 @@ else
     [ -d packages/apps/OpenEUICC ] && rm -rf packages/apps/OpenEUICC && echo "[AXP] .. removed packages/apps/OpenEUICC (stops divest patching)"
 fi
 
-# fixup divest deblob leftover
-head -n1 device/google/gs201/widevine/device.mk | grep -q PRODUCT_PACKAGES || sed -i '1i\
+# fixup divest deblob leftovers
+if [ -f device/google/gs201/widevine/device.mk ];then
+    head -n1 device/google/gs201/widevine/device.mk | grep -q PRODUCT_PACKAGES || sed -i '1i\
 PRODUCT_PACKAGES += \\' device/google/gs201/widevine/device.mk
+fi
 
 echo "[AXP] ended with $? ..."
