@@ -82,6 +82,9 @@ else
 fi
 
 # fixup divest deblob leftovers
+if [ -f device/google/gs101/device.mk ];then
+  sed -i "/google iwlan/,+5d" device/google/gs101/device.mk 
+fi
 if [ -f device/google/gs201/widevine/device.mk ];then
     head -n1 device/google/gs201/widevine/device.mk | grep -q PRODUCT_PACKAGES || sed -i '1i\
 PRODUCT_PACKAGES += \\' device/google/gs201/widevine/device.mk
