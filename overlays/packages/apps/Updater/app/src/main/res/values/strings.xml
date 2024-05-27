@@ -4,5 +4,6 @@
   
     <string name="export_path" translatable="false">AXP.OS updates/</string>
     <string name="updater_server_url" translatable="false">%%AXP_OTA_SERVER_URI%%</string>
+    <string name="menu_server_choice_primary">Stable</string>
 
 </resources>
