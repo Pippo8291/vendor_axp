@@ -41,6 +41,7 @@ if [ ! -f ".wg.patched" ];then
     mkdir -p net/wireguard/compat
     if [ -f $CPWD/kernel/wireguard-linux-compat/kernel-tree-scripts/create-patch.sh ];then
         $CPWD/kernel/wireguard-linux-compat/kernel-tree-scripts/create-patch.sh | patch -p1 --no-backup-if-mismatch
+        git add -A && git commit --author="Jason A. Donenfeld <Jason@zx2c4.com>" -m "apply wireguard-linux-compat"
         echo "[AXP] .. patched kernel sources for wireguard"
     else
         echo "[AXP] ERROR patching kernel sources for wireguard (missing compat patcher)!"
@@ -56,10 +57,12 @@ fi
 if [ ! -f "$AXP_KERNEL_PATH/.defconf.patched" ];then
     for cf in $AXP_DEFCONFIG_GLOBALS; do
        grep -q "^$cf=y" $AXP_KERNEL_PATH/arch/$AXP_TARGET_ARCH/configs/$AXP_KERNEL_CONF || echo -e "\n$cf=y" >> $AXP_KERNEL_PATH/arch/$AXP_TARGET_ARCH/configs/$AXP_KERNEL_CONF
+       git add -A && git commit --author="${AXP_GIT_AUTHOR} <${AXP_GIT_MAIL}>" -m "defconfig: applied AXP patch\n\n$cf"
        echo "[AXP] .. kernel globals defconfig $cf has been set"
     done
     for cfd in $AXP_DEFCONFIG_DEVICE; do
        grep -q "^$cfd" $AXP_KERNEL_PATH/arch/$AXP_TARGET_ARCH/configs/$AXP_KERNEL_CONF || echo -e "\n$cfd" >> $AXP_KERNEL_PATH/arch/$AXP_TARGET_ARCH/configs/$AXP_KERNEL_CONF
+       git add -A && git commit --author="${AXP_GIT_AUTHOR} <${AXP_GIT_MAIL}>" -m "defconfig: applied AXP patch\n\nadded: $cfd"
        echo "[AXP] .. kernel device specific defconfig $cfd has been set"
     done
     touch $AXP_KERNEL_PATH/.defconf.patched
@@ -83,11 +86,17 @@ fi
 
 # fixup divest deblob leftovers
 if [ -f device/google/gs101/device.mk ];then
-  sed -i "/google iwlan/,+5d" device/google/gs101/device.mk 
+  sed -i "/google iwlan/,+5d" device/google/gs101/device.mk
+  cd device/google/gs101
+  git add -A && git commit --author="${AXP_GIT_AUTHOR} <${AXP_GIT_MAIL}>" -m "gs101: fix divest deblob leftovers"
+  cd ../../..
 fi
 if [ -f device/google/gs201/widevine/device.mk ];then
     head -n1 device/google/gs201/widevine/device.mk | grep -q PRODUCT_PACKAGES || sed -i '1i\
 PRODUCT_PACKAGES += \\' device/google/gs201/widevine/device.mk
+    cd device/google/gs201
+    git add -A && git commit --author="${AXP_GIT_AUTHOR} <${AXP_GIT_MAIL}>" -m "gs201: fix divest deblob leftovers"
+    cd ../../..
 fi
 
 echo "[AXP] ended with $? ..."
