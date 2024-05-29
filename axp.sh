@@ -58,14 +58,14 @@ if [ ! -f "$AXP_KERNEL_PATH/.defconf.patched" ];then
     for cf in $AXP_DEFCONFIG_GLOBALS; do
        grep -q "^$cf=y" $AXP_KERNEL_PATH/arch/$AXP_TARGET_ARCH/configs/$AXP_KERNEL_CONF || echo -e "\n$cf=y" >> $AXP_KERNEL_PATH/arch/$AXP_TARGET_ARCH/configs/$AXP_KERNEL_CONF
        cd $AXP_KERNEL_PATH
-       git add -A && git commit --author="${AXP_GIT_AUTHOR} <${AXP_GIT_MAIL}>" -m "defconfig: applied AXP patch\n\n$cf"
+       git add -A && git commit --author="${AXP_GIT_AUTHOR} <${AXP_GIT_MAIL}>" -m "defconfig: applied: $cf"
        echo "[AXP] .. kernel globals defconfig $cf has been set"
        cd $CPWD
     done
     for cfd in $AXP_DEFCONFIG_DEVICE; do
        grep -q "^$cfd" $AXP_KERNEL_PATH/arch/$AXP_TARGET_ARCH/configs/$AXP_KERNEL_CONF || echo -e "\n$cfd" >> $AXP_KERNEL_PATH/arch/$AXP_TARGET_ARCH/configs/$AXP_KERNEL_CONF
        cd $AXP_KERNEL_PATH
-       git add -A && git commit --author="${AXP_GIT_AUTHOR} <${AXP_GIT_MAIL}>" -m "defconfig: applied AXP patch\n\nadded: $cfd"
+       git add -A && git commit --author="${AXP_GIT_AUTHOR} <${AXP_GIT_MAIL}>" -m "defconfig: applied $cfd"
        echo "[AXP] .. kernel device specific defconfig $cfd has been set"
        cd $CPWD
     done
