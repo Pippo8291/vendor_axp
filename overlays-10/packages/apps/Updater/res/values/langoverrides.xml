@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  
+
     <string name="apply_update_dialog_message">You are about to install <xliff:g id="update_name">%1$s</xliff:g>.\n\nIf you press <xliff:g id="ok">%2$s</xliff:g>, the device will restart itself in recovery mode to install the update.\n\nNote: This feature requires a compatible Recovery or updates will need to be installed manually.\n\n!! IMPORTANT !!\nIf you have hidden the Magisk app, run "Restore Magisk app" (Magisk settings) BEFORE proceeding here!</string>
 
     <string name="apply_update_dialog_message_ab">You are about to install <xliff:g id="update_name">%1$s</xliff:g>.\n\nIf you press <xliff:g id="ok">%2$s</xliff:g>, the device will begin installing in the background.\n\nOnce completed, you will be prompted to reboot.\n\n!! IMPORTANT !!\nIf you have hidden the Magisk app, run "Restore Magisk app" (Magisk settings) BEFORE restarting.</string>
