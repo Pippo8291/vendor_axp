@@ -35,7 +35,7 @@ cd $CPWD
 sed -i "s|%%AXP_OTA_SERVER_URI%%|${AXP_OTA_SERVER_URI}|g" vendor/axp/overlays/packages/apps/Updater/app/src/main/res/values/strings.xml && echo "[AXP] .. updated OTA url"
 
 # patch kernel source to build wireguard module
-if [ ! -f ".wg.patched" ];then
+if [ ! -f "$AXP_KERNEL_PATH/.wg.patched" ];then
     cd $AXP_KERNEL_PATH
     if [ -d "net/wireguard" ];then rm -rf net/wireguard ;fi
     mkdir -p net/wireguard/compat
@@ -48,7 +48,7 @@ if [ ! -f ".wg.patched" ];then
         exit 3
     fi
     cd $CPWD
-    touch .wg.patched
+    touch $AXP_KERNEL_PATH/.wg.patched
 else
     echo "[AXP] .. kernel is already patched for wireguard (patch indicator exists)"
 fi
