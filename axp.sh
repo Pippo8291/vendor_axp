@@ -90,12 +90,12 @@ else
 fi
 
 # fixup divest deblob leftovers
-if [ -f device/google/gs101/device.mk ];then
-  sed -i "/google iwlan/,+5d" device/google/gs101/device.mk
-  cd device/google/gs101
-  git add -A && git commit --author="${AXP_GIT_AUTHOR} <${AXP_GIT_MAIL}>" -m "gs101: fix divest deblob leftovers"
-  cd $CPWD
-fi
+#if [ -f device/google/gs101/device.mk ];then
+#  sed -i "/google iwlan/,+5d" device/google/gs101/device.mk
+#  cd device/google/gs101
+#  git add -A && git commit --author="${AXP_GIT_AUTHOR} <${AXP_GIT_MAIL}>" -m "gs101: fix divest deblob leftovers"
+#  cd $CPWD
+#fi
 if [ -f device/google/gs201/widevine/device.mk ];then
     head -n1 device/google/gs201/widevine/device.mk | grep -q PRODUCT_PACKAGES || sed -i '1i\
 PRODUCT_PACKAGES += \\' device/google/gs201/widevine/device.mk
