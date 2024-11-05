@@ -3,8 +3,7 @@
 # This file is part of AXP.OS (https://axp.binbash.rocks)
 # LICENSE: GPLv3 (https://www.gnu.org/licenses/gpl-3.0.txt)
 #
-# Copyright (C) 2023 steadfasterX <steadfasterX -AT- gmail #DOT# com>
-# Copyright (C) 2024 steadfasterX <steadfasterX -AT- gmail #DOT# com>
+# Copyright (C) 2023-2024 steadfasterX <steadfasterX -AT- gmail #DOT# com>
 #
 ##############################################################################
 # AXP.OS advanced AVB handling
@@ -22,6 +21,10 @@ BOARD_AVB_ALGORITHM := SHA512_RSA4096
 # pub key (avb_pkmd.bin) must be flashed to avb_custom_key partition
 # see https://github.com/AXP-OS/build/wiki/Bootloader-Lock
 BOARD_AVB_KEY_PATH := user-keys/avb.pem
+
+BOARD_AVB_RECOVERY_KEY_PATH := $(BOARD_AVB_KEY_PATH)
+BOARD_AVB_RECOVERY_ROLLBACK_INDEX := $(PLATFORM_SECURITY_PATCH_TIMESTAMP)
+BOARD_AVB_RECOVERY_ROLLBACK_INDEX_LOCATION := 1
 
 BOARD_AVB_BOOT_ALGORITHM := $(BOARD_AVB_ALGORITHM)
 BOARD_AVB_RECOVERY_ALGORITHM := $(BOARD_AVB_ALGORITHM)
