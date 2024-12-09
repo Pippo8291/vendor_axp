@@ -7,10 +7,14 @@
 #
 ##############################################################################
 
-ifeq ($(call math_gt_or_eq,$(PLATFORM_SDK_VERSION),30), true)
+# use correct overlay based on android SDK
+ifeq ($(call math_gt_or_eq,$(PLATFORM_SDK_VERSION),31), true)
 DEVICE_PACKAGE_OVERLAYS += \
     vendor/axp/overlays
-else
+else ifeq ($(call math_gt_or_eq,$(PLATFORM_SDK_VERSION),30), true)
+DEVICE_PACKAGE_OVERLAYS += \
+    vendor/axp/overlays-11
+else ifeq ($(call math_gt_or_eq,$(PLATFORM_SDK_VERSION),28), true)
 DEVICE_PACKAGE_OVERLAYS += \
     vendor/axp/overlays-10
 endif

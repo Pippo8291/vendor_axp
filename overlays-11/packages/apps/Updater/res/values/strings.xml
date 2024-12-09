@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  
+    <string name="export_path" translatable="false">AXP.OS updates/</string>
+    <string name="updater_server_url" translatable="false">%%AXP_OTA_SERVER_URI%%</string>
+    <string name="menu_server_choice_primary">Stable</string>
+    <string name="menu_server_choice_secondary">UNSTABLE</string>
+    <string name="menu_server_choice_onion_primary"></string>
+    <string name="menu_server_choice_onion_secondary"></string>
+
+</resources>
