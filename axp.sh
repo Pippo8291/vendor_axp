@@ -38,6 +38,7 @@ sed -i "s|%%AXP_OTA_SERVER_URI%%|${AXP_OTA_SERVER_URI}|g" vendor/axp/overlays/pa
 # (see: https://www.wireguard.com/compilation/#building-directly-in-tree)
 if [ ! -f "$AXP_KERNEL_PATH/.wg.patched" ];then
     cd $AXP_KERNEL_PATH
+    echo "[AXP] wireguard patching .. path: ${AXP_KERNEL_PATH}"
     if [ -d "net/wireguard" ];then rm -rf net/wireguard ;fi
     mkdir -p net/wireguard/compat
     if [ -f $CPWD/kernel/wireguard-linux-compat/kernel-tree-scripts/create-patch.sh ];then
