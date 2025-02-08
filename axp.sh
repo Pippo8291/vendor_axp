@@ -4,7 +4,7 @@
 # This file is part of AXP.OS (https://axp.binbash.rocks)
 # LICENSE: GPLv3 (https://www.gnu.org/licenses/gpl-3.0.txt)
 #
-# Copyright (C) 2023-2024 steadfasterX <steadfasterX -AT- gmail #DOT# com>
+# Copyright (C) 2023-2025 steadfasterX <steadfasterX -AT- gmail #DOT# com>
 #
 ###############################################################################
 
@@ -21,7 +21,7 @@ export AXP_KERNEL_CONF=$(build/soong/soong_ui.bash --dumpvar-mode TARGET_KERNEL_
 if [ "x$AXP_KERNEL_PATH" == x ];then
     echo "[AXP] ERROR: kernel path could not be detected"
 else
-    echo "[AXP] started ..."
+    echo "[AXP] started with kernel path: $AXP_KERNEL_PATH"
 fi
 
 # allow a custom OTA server URI, use default if unspecified
