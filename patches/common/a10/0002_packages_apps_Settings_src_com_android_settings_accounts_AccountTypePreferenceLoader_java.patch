@@ -1,14 +1,14 @@
 
 project packages/apps/Settings/
 diff --git a/src/com/android/settings/accounts/AccountTypePreferenceLoader.java b/src/com/android/settings/accounts/AccountTypePreferenceLoader.java
-index bd2eea221f7..47d4dedd72e 100644
+index 84386a38f08..11e755dcb00 100644
 --- a/src/com/android/settings/accounts/AccountTypePreferenceLoader.java
 +++ b/src/com/android/settings/accounts/AccountTypePreferenceLoader.java
-@@ -44,7 +44,6 @@ import androidx.preference.PreferenceFragmentCompat;
- import androidx.preference.PreferenceGroup;
- import androidx.preference.PreferenceScreen;
+@@ -34,7 +34,6 @@ import android.util.Log;
  
--import com.android.internal.annotations.VisibleForTesting;
- import com.android.settings.R;
- import com.android.settings.core.SubSettingLauncher;
- import com.android.settings.location.LocationSettings;
+ import androidx.annotation.NonNull;
+ import androidx.annotation.Nullable;
+-import androidx.annotation.VisibleForTesting;
+ import androidx.collection.ArraySet;
+ import androidx.preference.Preference;
+ import androidx.preference.Preference.OnPreferenceClickListener;
