@@ -18,6 +18,11 @@ export AXP_TARGET_ARCH=$(build/soong/soong_ui.bash --dumpvar-mode TARGET_ARCH  2
 export AXP_KERNEL_PATH=$(build/soong/soong_ui.bash --dumpvar-mode TARGET_KERNEL_SOURCE  2>/dev/null)
 export AXP_KERNEL_CONF=$(build/soong/soong_ui.bash --dumpvar-mode TARGET_KERNEL_CONFIG  2>/dev/null)
 
+echo "AXP_TARGET_VERSION: $AXP_TARGET_VERSION"
+echo "AXP_TARGET_ARCH: $AXP_TARGET_ARCH"
+echo "AXP_KERNEL_PATH: $AXP_KERNEL_PATH"
+echo "AXP_KERNEL_CONF: $AXP_KERNEL_CONF"
+
 if [ "x$AXP_KERNEL_PATH" == x ];then
     echo "[AXP] ERROR: kernel path could not be detected"
 else
@@ -110,7 +115,7 @@ if [ "$AXP_LOW_STORAGE" == "yes" ];then
     cd device/${AXP_DEVICEVENDOR}/${AXP_DEVICE}
     grep -qE '^BOARD_PRODUCTIMAGE_PARTITION_RESERVED_SIZE' Board*.mk \
         && sed -i -E 's/^BOARD_PRODUCTIMAGE_PARTITION_RESERVED_SIZE/#BOARD_PRODUCTIMAGE_PARTITION_RESERVED_SIZE/g' Board*.mk \
-        && git add -A && git commit --author="${AXP_GIT_AUTHOR} <${AXP_GIT_MAIL}>" -m "${AXP_DEVICE}: remove reserved space for AXP.OS"
+        && git add -A && git commit --author="${AXP_GIT_AUTHOR} <${AXP_GIT_MAIL}>" -m "${AXP_DEVICE}: remove reserved space for AXP.OS" \
         && echo "[AXP] OK: freed-up reserved space!"
     cd $CPWD
 else
