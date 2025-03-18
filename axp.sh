@@ -109,6 +109,12 @@ PRODUCT_PACKAGES += \\' device/google/gs201/widevine/device.mk
     cd $CPWD
 fi
 
+if [ "$AXP_DEVICE" == "FP4" ];then
+    echo "[AXP] ... specific FP4 adjustments"
+    grep -q BOARD_AVB_VBMETA_SYSTEM device/${AXP_DEVICEVENDOR}/${AXP_DEVICE}/BoardConfig.mk \
+        || echo "BOARD_AVB_VBMETA_SYSTEM := system" >> device/${AXP_DEVICEVENDOR}/${AXP_DEVICE}/BoardConfig.mk
+fi
+
 # free-up reserved space (required for microG etc)
 if [ "$AXP_LOW_STORAGE" == "yes" ];then
     echo "[AXP] ... free-up reserved space"
