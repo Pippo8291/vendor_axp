@@ -12,7 +12,7 @@
 #set -e
 
 CPWD=$PWD
-# get build vars (require a lunch before!)
+# get build vars (requires a lunch before!)
 export AXP_TARGET_VERSION=$(build/soong/soong_ui.bash --dumpvar-mode PLATFORM_VERSION  2>/dev/null)
 export AXP_TARGET_ARCH=$(build/soong/soong_ui.bash --dumpvar-mode TARGET_ARCH  2>/dev/null)
 export AXP_KERNEL_PATH=$(build/soong/soong_ui.bash --dumpvar-mode TARGET_KERNEL_SOURCE  2>/dev/null)
@@ -102,6 +102,19 @@ PRODUCT_PACKAGES += \\' device/google/gs201/widevine/device.mk
     cd device/google/gs201
     git add -A && git commit --author="${AXP_GIT_AUTHOR} <${AXP_GIT_MAIL}>" -m "gs201: fix divest deblob leftovers"
     cd $CPWD
+fi
+
+# free-up reserved space (required for microG etc)
+if [ "$AXP_TYPE" == "pro" ];then
+    echo "[AXP] ... free-up reserved space"
+    cd device/${AXP_DEVICEVENDOR}/${AXP_DEVICE}
+    grep -qE '^BOARD_PRODUCTIMAGE_PARTITION_RESERVED_SIZE' Board*.mk \
+        && sed -i -E 's/^BOARD_PRODUCTIMAGE_PARTITION_RESERVED_SIZE/#BOARD_PRODUCTIMAGE_PARTITION_RESERVED_SIZE/g' Board*.mk \
+        && git add -A && git commit --author="${AXP_GIT_AUTHOR} <${AXP_GIT_MAIL}>" -m "${AXP_DEVICE}: remove reserved space for AXP.OS"
+        && echo "[AXP] OK: freed-up reserved space!"
+    cd $CPWD
+else
+    echo "[AXP] ... skipping free-up reserved space (AXP_TYPE: $AXP_TYPE)"
 fi
 
 echo "[AXP] ended with $? ..."
