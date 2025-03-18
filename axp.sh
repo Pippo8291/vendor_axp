@@ -105,7 +105,7 @@ PRODUCT_PACKAGES += \\' device/google/gs201/widevine/device.mk
 fi
 
 # free-up reserved space (required for microG etc)
-if [ "$AXP_TYPE" == "pro" ];then
+if [ "$AXP_LOW_STORAGE" == "yes" ];then
     echo "[AXP] ... free-up reserved space"
     cd device/${AXP_DEVICEVENDOR}/${AXP_DEVICE}
     grep -qE '^BOARD_PRODUCTIMAGE_PARTITION_RESERVED_SIZE' Board*.mk \
@@ -114,7 +114,7 @@ if [ "$AXP_TYPE" == "pro" ];then
         && echo "[AXP] OK: freed-up reserved space!"
     cd $CPWD
 else
-    echo "[AXP] ... skipping free-up reserved space (AXP_TYPE: $AXP_TYPE)"
+    echo "[AXP] ... skipping free-up reserved space (AXP_LOW_STORAGE: $AXP_LOW_STORAGE)"
 fi
 
 echo "[AXP] ended with $? ..."
