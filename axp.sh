@@ -123,7 +123,7 @@ if [ "$AXP_LOW_STORAGE" == "yes" ];then
     cd device/${AXP_DEVICEVENDOR}/${AXP_DEVICE}
     for rserv in $BOARDRESERVATION;do
         grep -qE "^$rserv" Board*.mk \
-            && sed -i -E "s/^(${rserv}.*)/#\1/g' Board*.mk
+            && sed -i -E "s/^(${rserv}.*)/#\1/g" Board*.mk
     done
     git add -A && git commit --author="${AXP_GIT_AUTHOR} <${AXP_GIT_MAIL}>" -m "${AXP_DEVICE}: remove reserved space for AXP.OS" \
         && echo "[AXP] OK: freed-up reserved space!"
