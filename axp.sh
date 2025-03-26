@@ -25,6 +25,7 @@ echo "AXP_KERNEL_CONF: $AXP_KERNEL_CONF"
 echo "AOS_BRANDING_BUILDTYPE: $AOS_BRANDING_BUILDTYPE"
 if [ "$AOS_BRANDING_BUILDTYPE" != "SLIM" ];then AXP_LOW_STORAGE=yes ;fi # Pro includes big apps like MicroG so we do not want to reserve disk space
 echo "AXP_LOW_STORAGE: $AXP_LOW_STORAGE"
+echo device/${AXP_DEVICEVENDOR}/${AXP_DEVICE}
 
 if [ "x$AXP_KERNEL_PATH" == x ];then
     echo "[AXP] ERROR: kernel path could not be detected"
