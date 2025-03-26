@@ -118,10 +118,14 @@ fi
 # free-up reserved space (required for microG etc)
 if [ "$AXP_LOW_STORAGE" == "yes" ];then
     echo "[AXP] ... free-up reserved space"
+    BOARDRESERVATION="BOARD_PRODUCTIMAGE_EXTFS_INODE_COUNT BOARD_PRODUCTIMAGE_PARTITION_RESERVED_SIZE BOARD_SYSTEMIMAGE_EXTFS_INODE_COUNT BOARD_SYSTEMIMAGE_PARTITION_RESERVED_SIZE BOARD_SYSTEM_EXTIMAGE_EXTFS_INODE_COUNT BOARD_SYSTEM_EXTIMAGE_PARTITION_RESERVED_SIZE"
+
     cd device/${AXP_DEVICEVENDOR}/${AXP_DEVICE}
-    grep -qE '^BOARD_PRODUCTIMAGE_PARTITION_RESERVED_SIZE' Board*.mk \
-        && sed -i -E 's/^BOARD_PRODUCTIMAGE_PARTITION_RESERVED_SIZE/#BOARD_PRODUCTIMAGE_PARTITION_RESERVED_SIZE/g' Board*.mk \
-        && git add -A && git commit --author="${AXP_GIT_AUTHOR} <${AXP_GIT_MAIL}>" -m "${AXP_DEVICE}: remove reserved space for AXP.OS" \
+    for rserv in $BOARDRESERVATION;do
+        grep -qE "^$rserv" Board*.mk \
+            && sed -i -E "s/^(${rserv}.*)/#\1/g' Board*.mk
+    done
+    git add -A && git commit --author="${AXP_GIT_AUTHOR} <${AXP_GIT_MAIL}>" -m "${AXP_DEVICE}: remove reserved space for AXP.OS" \
         && echo "[AXP] OK: freed-up reserved space!"
     cd $CPWD
 else
