@@ -3,7 +3,7 @@
 # This file is part of AXP.OS (https://axp.binbash.rocks)
 # LICENSE: GPLv3 (https://www.gnu.org/licenses/gpl-3.0.txt)
 #
-# Copyright (C) 2023-2024 steadfasterX <steadfasterX -AT- gmail #DOT# com>
+# Copyright (C) 2023-2025 steadfasterX <steadfasterX -AT- gmail #DOT# com>
 #
 ##############################################################################
 # AXP.OS advanced AVB handling
@@ -26,6 +26,14 @@ ifeq ($(TARGET_DEVICE),klte)
 BOARD_AVB_RECOVERY_KEY_PATH := $(BOARD_AVB_KEY_PATH)
 BOARD_AVB_RECOVERY_ROLLBACK_INDEX := $(PLATFORM_SECURITY_PATCH_TIMESTAMP)
 BOARD_AVB_RECOVERY_ROLLBACK_INDEX_LOCATION := 1
+endif
+
+# fixes: 
+# Chained but ROLLBACK_SLOT (which is X) and KEY (which has sha1 X) not specified
+ifeq ($(TARGET_DEVICE),FP3)
+BOARD_AVB_SYSTEM_KEY_PATH := $(BOARD_AVB_KEY_PATH)
+BOARD_AVB_SYSTEM_ROLLBACK_INDEX := $(PLATFORM_SECURITY_PATCH_TIMESTAMP)
+BOARD_AVB_SYSTEM_ROLLBACK_INDEX_LOCATION := 1
 endif
 
 BOARD_AVB_BOOT_ALGORITHM := $(BOARD_AVB_ALGORITHM)
