@@ -4,6 +4,9 @@
   
     <string name="export_path" translatable="false">AXP.OS updates/</string>
     <string name="updater_server_url" translatable="false">%%AXP_OTA_SERVER_URI%%</string>
-    <string name="menu_server_choice_primary">Stable</string>
 
+    <string name="menu_server_choice_primary">%%DOS_OTA_SERVER_PRIMARY_NAME%%</string>
+    <string name="menu_server_choice_secondary">%%DOS_OTA_SERVER_SECONDARY_NAME%%</string>
+    <string name="menu_server_choice_onion_primary">%%DOS_OTA_SERVER_ONION_PRIMARY_NAME%%</string>
+    <string name="menu_server_choice_onion_secondary">%%DOS_OTA_SERVER_ONION_SECONDARY_NAME%%</string>
 </resources>

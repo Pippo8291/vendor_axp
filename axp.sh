@@ -1,7 +1,7 @@
 #!/bin/bash
 ###############################################################################
 #
-# This file is part of AXP.OS (https://axp.binbash.rocks)
+# This file is part of AXP.OS (https://axpos.org)
 # LICENSE: GPLv3 (https://www.gnu.org/licenses/gpl-3.0.txt)
 #
 # Copyright (C) 2023-2025 steadfasterX <steadfasterX -AT- gmail #DOT# com>
@@ -45,7 +45,11 @@ else
 fi
 cd vendor/axp/overlays/packages/apps/Updater/app/src/main/res/values/ && git checkout strings.xml
 cd $CPWD
-sed -i "s|%%AXP_OTA_SERVER_URI%%|${AXP_OTA_SERVER_URI}|g" vendor/axp/overlays/packages/apps/Updater/app/src/main/res/values/strings.xml && echo "[AXP] .. updated OTA url"
+sed -i "s|%%AXP_OTA_SERVER_URI%%|${AXP_OTA_SERVER_URI}|g" vendor/axp/overlays/packages/apps/Updater/app/src/main/res/values/strings.xml && echo "[AXP] .. updated OTA AXP_OTA_SERVER_URI"
+sed -i "s|%%DOS_OTA_SERVER_PRIMARY_NAME%%|${DOS_OTA_SERVER_PRIMARY_NAME}|g" vendor/axp/overlays/packages/apps/Updater/app/src/main/res/values/strings.xml && echo "[AXP] .. updated OTA DOS_OTA_SERVER_PRIMARY_NAME"
+sed -i "s|%%DOS_OTA_SERVER_SECONDARY_NAME%%|${DOS_OTA_SERVER_SECONDARY_NAME}|g" vendor/axp/overlays/packages/apps/Updater/app/src/main/res/values/strings.xml && echo "[AXP] .. updated OTA DOS_OTA_SERVER_SECONDARY_NAME"
+sed -i "s|%%DOS_OTA_SERVER_ONION_PRIMARY_NAME%%|${DOS_OTA_SERVER_ONION_PRIMARY_NAME}|g" vendor/axp/overlays/packages/apps/Updater/app/src/main/res/values/strings.xml && echo "[AXP] .. updated OTA DOS_OTA_SERVER_ONION_PRIMARY_NAME"
+sed -i "s|%%DOS_OTA_SERVER_ONION_SECONDARY_NAME%%|${DOS_OTA_SERVER_ONION_SECONDARY_NAME}|g" vendor/axp/overlays/packages/apps/Updater/app/src/main/res/values/strings.xml && echo "[AXP] .. updated OTA DOS_OTA_SERVER_ONION_SECONDARY_NAME"
 
 # patch kernel source to build wireguard module
 # (see: https://www.wireguard.com/compilation/#building-directly-in-tree)
