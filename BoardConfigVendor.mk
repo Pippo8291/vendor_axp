@@ -75,9 +75,13 @@ BOARD_AVB_SYSTEM_ADD_HASHTREE_FOOTER_ARGS += --hash_algorithm $(TARGET_AVB_GLOBA
 #ifeq ($(filter FP3,$(BDEVICE)),) # <-- cant get this working
 ifneq ($(BDEVICE),FP3)   # <-- likely we need to identify the root cause for this, i.e. e.g. "if chaining"?
 
-# enforce global hashtree algorithm for boot, dtbo, system, system_other|ext|dlkm, product
+# enforce global hashtree algorithm for boot, dtbo, recovery, system, system_other|ext|dlkm, product
 BOARD_AVB_BOOT_ADD_HASH_FOOTER_ARGS += --hash_algorithm $(TARGET_AVB_GLOBAL_HASHTREE_ALGORITHM)
 BOARD_AVB_DTBO_ADD_HASH_FOOTER_ARGS += --hash_algorithm $(TARGET_AVB_GLOBAL_HASHTREE_ALGORITHM)
+
+ifneq ($(TARGET_NO_RECOVERY),true)
+BOARD_AVB_RECOVERY_ADD_HASH_FOOTER_ARGS += --hash_algorithm $(TARGET_AVB_GLOBAL_HASHTREE_ALGORITHM)
+endif
 
 BOARD_AVB_SYSTEM_OTHER_ADD_HASHTREE_FOOTER_ARGS += --hash_algorithm $(TARGET_AVB_GLOBAL_HASHTREE_ALGORITHM)
 BOARD_AVB_SYSTEM_EXT_ADD_HASHTREE_FOOTER_ARGS += --hash_algorithm $(TARGET_AVB_GLOBAL_HASHTREE_ALGORITHM)
