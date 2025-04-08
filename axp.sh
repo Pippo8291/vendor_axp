@@ -36,9 +36,9 @@ fi
 # allow a custom OTA server URI, use default if unspecified
 if [ -z "$CUSTOM_AXP_OTA_SERVER_URI" ];then
     if [ "$AOS_BRANDING_BUILDTYPE" == "SLIM" ];then
-        export AXP_OTA_SERVER_URI="https://sfxota.binbash.rocks:8010/axp-slim/a${AXP_TARGET_VERSION}/api/v1/{device}/{incr}"
+        export AXP_OTA_SERVER_URI="https://$DOS_OTA_SERVER_PRIMARY/axp-slim/a${AXP_TARGET_VERSION}/api/v1/{device}/{incr}"
     else
-        export AXP_OTA_SERVER_URI="https://sfxota.binbash.rocks:8010/axp/a${AXP_TARGET_VERSION}/api/v1/{device}/{incr}"
+        export AXP_OTA_SERVER_URI="https://$DOS_OTA_SERVER_PRIMARY/axp/a${AXP_TARGET_VERSION}/api/v1/{device}/{incr}"
     fi
 else
     export AXP_OTA_SERVER_URI=$CUSTOM_AXP_OTA_SERVER_URI
