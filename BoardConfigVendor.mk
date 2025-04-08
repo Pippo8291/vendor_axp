@@ -23,9 +23,6 @@ BOARD_AVB_ALGORITHM := SHA512_RSA4096
 # see https://axpos.org/Bootloader-Lock
 BOARD_AVB_KEY_PATH := user-keys/avb.pem
 
-# overwrite testkeys on system partition if defined (e.g. FP3)
-BOARD_AVB_SYSTEM_KEY_PATH := $(BOARD_AVB_KEY_PATH)
-
 # BOARD_AVB_RECOVERY_KEY_PATH must be defined for if non-A/B is supported.
 # See https://android.googlesource.com/platform/external/avb/+/master/README.md#booting-into-recovery
 ifeq ($(TARGET_OTA_ALLOW_NON_AB),true)
@@ -94,5 +91,10 @@ BOARD_AVB_VENDOR_ADD_HASHTREE_FOOTER_ARGS += --hash_algorithm $(TARGET_AVB_GLOBA
 # enforce global hashtree algorithm for vendor_dlkm , odm_dlkm
 BOARD_AVB_ODM_DLKM_ADD_HASHTREE_FOOTER_ARGS += --hash_algorithm $(TARGET_AVB_GLOBAL_HASHTREE_ALGORITHM)
 BOARD_AVB_VENDOR_DLKM_ADD_HASHTREE_FOOTER_ARGS += --hash_algorithm $(TARGET_AVB_GLOBAL_HASHTREE_ALGORITHM)
+
+else
+
+# overwrite testkeys on system partition if defined (e.g. FP3)
+BOARD_AVB_SYSTEM_KEY_PATH := $(BOARD_AVB_KEY_PATH)
 
 endif # ifeq FP3
