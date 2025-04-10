@@ -46,7 +46,8 @@ while [[ $# -gt 0 ]]; do
         case $1 in
           -k)
             if [ -n "$2" ]; then
-              KERNPATH=$2
+              KERNPATHU=$2
+              KERNPATH=$(echo "${KERNPATHU}" | sed -E 's|(.*)/$|\1|g')
               shift 2
             else
               echo "Error: -k requires a kernel path."
@@ -77,14 +78,9 @@ done
 
 # parse a AXP.OS log (must be a clean build, i.e. startPatcher must have been run on a resetted workspace)
 f_parse(){
-    if [ -z "$KERNPATH" -o ! -d "$KERNPATH" -o -z "$LOGFILE" -o ! -f "$LOGFILE" ];then
-        echo "Missing or wrong Kernel path and/or logfile name! usage: $0 <kernel-path> <full-path-to-logfile>"
-        exit 4
-    fi
-
     cd $KERNPATH
 
-    for blame in $(grep error: "$LOGFILE" | grep -E ':[0-9]+:[0-9]+:'| cut -d / -f19-200 | cut -d : -f1-2 | grep : | sort -u | grep -vE '^$' | tr '\n' " " | sed 's#private/gs-google/##g');do
+    for blame in $(grep error: "$LOGFILE" | grep -E ':[0-9]+:[0-9]+:' | sed -E "s|.*${KERNPATH}/||g" | cut -d : -f1-2 | grep : | sort -u | grep -vE '^$' | tr '\n' " " | sed 's#private/gs-google/##g');do
         echo "bp=${blame/:*} ln=${blame/*:}"
         export bp="${blame/:*}" ln="${blame/*:}"
         export commit=$(git blame $bp |grep " ${ln})" | cut -d " " -f1)
