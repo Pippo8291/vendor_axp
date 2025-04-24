@@ -111,7 +111,7 @@ f_parse(){
     if [ -z "$TCVE" ];then
         echo "Woot?! no CVE(s) found? NOTE: a CLEAN build incl. full patching is REQUIRED to find matching CVE's."
     else
-        echo -en "\nRPOBLEMATIC_CVES: "
+        echo -en "\nPROBLEMATIC_CVES: "
         for cv in $TCVE;do echo -n "\"$cv\" " ;done
         echo -e "\n\n"
     fi
