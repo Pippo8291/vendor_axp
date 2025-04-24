@@ -1,6 +1,6 @@
 ##############################################################################
 #
-# This file is part of AXP.OS (https://axp.binbash.rocks)
+# This file is part of AXP.OS (https://axpos.org)
 # LICENSE: GPLv3  (https://www.gnu.org/licenses/gpl-3.0.txt)
 #
 # Copyright (C) 2023-2025 steadfasterX <steadfasterX -AT- gmail #DOT# com>
@@ -24,5 +24,7 @@ endif
 # include https://github.com/sfX-android/android_vendor_extendrom
 $(call inherit-product, vendor/extendrom/config/common.mk)
 
-# load the AXP.OS advanced AVB handling
+# load the AXP.OS advanced AVB handling - if not explictly denied
+ifneq ($(AXP_ENABLE_AVB), false)
 include vendor/axp/BoardConfigVendor.mk
+endif
