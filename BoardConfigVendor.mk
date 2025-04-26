@@ -123,7 +123,7 @@ endif
 
 # FP3 breaks when adding hashtree footers (at least on boot + dtbo) so filter it out when detected
 # likely it could be enabled on the other partitions but this wasn't tested
-ifeq ($(filter FP3,$(BDEVICE)),) # <-- likely we need to identify the root cause for this, i.e. e.g. "if chaining"?
+ifneq ($(filter FP3,$(BDEVICE)),) # <-- likely we need to identify the root cause for this, i.e. e.g. "if chaining"?
 
 # enforce global hashtree algorithm for boot, dtbo, recovery, system, system_other|ext|dlkm, product
 BOARD_AVB_BOOT_ADD_HASH_FOOTER_ARGS += --hash_algorithm $(TARGET_AVB_GLOBAL_HASHTREE_ALGORITHM)
