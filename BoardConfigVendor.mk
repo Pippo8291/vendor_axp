@@ -25,8 +25,11 @@
 #
 #########################################################################################################
 
+# load the AXP.OS advanced AVB handling - if not explictly denied
+ifneq ($(AXP_ENABLE_AVB), false)
 # Enable android verified boot
 BOARD_AVB_ENABLE := true
+endif
 
 # AVB key size and hash
 BOARD_AVB_ALGORITHM := SHA512_RSA4096
@@ -37,15 +40,13 @@ BOARD_AVB_KEY_PATH := user-keys/avb.pem
 
 # BOARD_AVB_RECOVERY_KEY_PATH must be defined for if non-A/B is supported. e.g. klte
 # See https://android.googlesource.com/platform/external/avb/+/master/README.md#booting-into-recovery
-ifeq ($(TARGET_OTA_ALLOW_NON_AB),true)
-ifneq ($(INSTALLED_RECOVERYIMAGE_TARGET),)
+ifneq ($(filter klte,$(TARGET_DEVICE)),)
 BOARD_AVB_RECOVERY_KEY_PATH := $(BOARD_AVB_KEY_PATH)
 BOARD_AVB_RECOVERY_ROLLBACK_INDEX := $(PLATFORM_SECURITY_PATCH_TIMESTAMP)
 ifndef BOARD_AVB_RECOVERY_ROLLBACK_INDEX_LOCATION
 BOARD_AVB_RECOVERY_ROLLBACK_INDEX_LOCATION := 1
 endif # BOARD_AVB_RECOVERY_ROLLBACK_INDEX_LOCATION 
-endif # INSTALLED_RECOVERYIMAGE_TARGET
-endif # TARGET_OTA_ALLOW_NON_AB
+endif # filter
 
 # overwrite testkeys on system partition if defined (e.g. FP3)
 ifdef BOARD_AVB_SYSTEM_KEY_PATH

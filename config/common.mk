@@ -24,7 +24,4 @@ endif
 # include https://github.com/sfX-android/android_vendor_extendrom
 $(call inherit-product, vendor/extendrom/config/common.mk)
 
-# load the AXP.OS advanced AVB handling - if not explictly denied
-ifneq ($(AXP_ENABLE_AVB), false)
 include vendor/axp/BoardConfigVendor.mk
-endif
