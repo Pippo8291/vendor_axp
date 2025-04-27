@@ -40,7 +40,7 @@ BOARD_AVB_KEY_PATH := user-keys/avb.pem
 
 # BOARD_AVB_RECOVERY_KEY_PATH must be defined for if non-A/B is supported. e.g. klte
 # See https://android.googlesource.com/platform/external/avb/+/master/README.md#booting-into-recovery
-ifeq ($(filter klte,$(BDEVICE)),)
+ifneq ($(filter klte,$(BDEVICE)),)
 BOARD_AVB_RECOVERY_KEY_PATH := $(BOARD_AVB_KEY_PATH)
 BOARD_AVB_RECOVERY_ROLLBACK_INDEX := $(PLATFORM_SECURITY_PATCH_TIMESTAMP)
 ifndef BOARD_AVB_RECOVERY_ROLLBACK_INDEX_LOCATION
@@ -123,7 +123,7 @@ endif
 
 # FP3 breaks when adding hashtree footers (at least on boot + dtbo) so filter it out when detected
 # likely it could be enabled on the other partitions but this wasn't tested
-ifneq ($(filter FP3,$(BDEVICE)),) # <-- likely we need to identify the root cause for this, i.e. e.g. "if chaining"?
+ifeq ($(filter FP3,$(BDEVICE)),) # <-- likely we need to identify the root cause for this, i.e. e.g. "if chaining"?
 
 # enforce global hashtree algorithm for boot, dtbo, recovery, system, system_other|ext|dlkm, product
 BOARD_AVB_BOOT_ADD_HASH_FOOTER_ARGS += --hash_algorithm $(TARGET_AVB_GLOBAL_HASHTREE_ALGORITHM)
