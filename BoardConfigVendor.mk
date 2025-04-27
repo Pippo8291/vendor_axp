@@ -40,7 +40,7 @@ BOARD_AVB_KEY_PATH := user-keys/avb.pem
 
 # BOARD_AVB_RECOVERY_KEY_PATH must be defined for if non-A/B is supported. e.g. klte
 # See https://android.googlesource.com/platform/external/avb/+/master/README.md#booting-into-recovery
-ifneq ($(filter klte,$(BDEVICE)),)
+ifeq ($(filter klte,$(BDEVICE)),)
 BOARD_AVB_RECOVERY_KEY_PATH := $(BOARD_AVB_KEY_PATH)
 BOARD_AVB_RECOVERY_ROLLBACK_INDEX := $(PLATFORM_SECURITY_PATCH_TIMESTAMP)
 ifndef BOARD_AVB_RECOVERY_ROLLBACK_INDEX_LOCATION
